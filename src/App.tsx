@@ -193,7 +193,7 @@ export default function App() {
       >
         <header className="invitation-header">
           <p>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
-          <span>دعوة زفاف</span>
+          <span></span>
         </header>
 
         <article className="invitation-card">
@@ -206,9 +206,9 @@ export default function App() {
             </div>
             <div className="host-copy">
               <span>تتشرف حرم الحاج</span>
-              <strong>محمد ميلاد المائل</strong>
+              <strong>/محمد ميلاد المائل</strong>
               <span>السيدة</span>
-              <strong>سميرة علي الأحمر</strong>
+              <strong>/سميرة علي الأحمر</strong>
             </div>
             <p className="invitation-line">
               بدعوتكم لحضور حفل زفاف حبيبتهم
@@ -241,7 +241,7 @@ export default function App() {
                 target="_blank"
                 rel="noreferrer"
               >
-                موقع قاعة الحفل
+                موقع قاعة رويال بلاس
                 <span>عرض على الخريطة</span>
               </a>
             </Detail>
@@ -254,11 +254,11 @@ export default function App() {
           </div>
         </section>
 
-        <section className="notes" aria-label="تنبيهات الحفل">
+        <section className="notes" aria-label="لطفا">
           <div>
             <CameraIcon />
             <p>
-              <strong>لحظاتنا أجمل بخصوصيتها</strong>يُمنع التصوير داخل القاعة
+              <strong>لحظاتنا أجمل بخصوصيتها</strong>استحلفكم بالله ان تحفظوا خصوصيتي بعدم التصوير
             </p>
           </div>
           <span className="notes-divider" />
