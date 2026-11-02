@@ -80,7 +80,7 @@ function ChildIcon() {
 function SnapchatIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 2.8c2.8 0 4.9 2.1 4.9 4.9 0 1.1-.3 2-.9 2.9-.7.9-1.6 1.4-2.7 1.8.8.4 1.4 1.1 1.8 1.9.6 1.1.5 2.3-.3 3.3-.9 1.2-2.3 1.8-4.1 1.8-1.8 0-3.2-.6-4.1-1.8-.8-1-.9-2.2-.3-3.3.4-.8 1-1.5 1.8-1.9-1.1-.4-2-.9-2.7-1.8-.6-.9-.9-1.8-.9-2.9 0-2.8 2.1-4.9 4.9-4.9Z" />
+      <path d="M12 2.8c2.8 0 4.9 2.1 4.9 4.9 0 1.1-.3 2-.9 2.9-.7.9-1.6 1.4-2.7 1.8.8.4 1.4 1.1 1.8 1.9.6 1.1.5 2.3-.3 3.3-.9 1.2-2.3 1.8-4.1 1.8-1.8 0-3.2-.6-4.1-1.8-.8-1-.9-2.2-.3-3.3.4-.8 1-1.5" />
       <path d="M9.5 7.3c.7-.7 1.6-1 2.5-1 .9 0 1.8.3 2.5 1" />
     </svg>
   )
@@ -116,7 +116,10 @@ export default function App() {
     const timer = window.setInterval(() => setTimeLeft(getTimeLeft()), 1000)
     return () => {
       window.clearInterval(timer)
-      audioRef.current?.pause()
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current.currentTime = 0
+      }
     }
   }, [])
 
@@ -124,9 +127,10 @@ export default function App() {
     if (opening) return
     setOpening(true)
 
-    const audio = new Audio(ENVELOPE_OPENING_AUDIO)
+    const audio = audioRef.current ?? new Audio(ENVELOPE_OPENING_AUDIO)
     audioRef.current = audio
     audio.volume = 0.7
+    audio.currentTime = 0
     audio.play().catch(() => undefined)
 
     window.setTimeout(() => setOpened(true), 1200)
@@ -142,9 +146,7 @@ export default function App() {
   return (
     <main
       className="wedding-page"
-      style={
-        { "--paper-pattern": `url(${invitationPattern})` } as CSSProperties
-      }
+      style={{ "--paper-pattern": `url(${invitationPattern})` } as CSSProperties}
     >
       <audio ref={audioRef} src={ENVELOPE_OPENING_AUDIO} preload="auto" />
 
@@ -182,11 +184,7 @@ export default function App() {
 
         {!opening ? (
           <button className="open-prompt" onClick={openInvitation}>
-            <svg
-              className="prompt-arrow"
-              viewBox="0 0 80 78"
-              aria-hidden="true"
-            >
+            <svg className="prompt-arrow" viewBox="0 0 80 78" aria-hidden="true">
               <path d="M12 70C10 43 28 18 62 12" />
               <path d="m49 7 14 5-8 13" />
             </svg>
@@ -201,11 +199,7 @@ export default function App() {
         )}
       </section>
 
-      <section
-        id="invitation"
-        className={`invitation ${opened ? "is-visible" : ""}`}
-        dir="rtl"
-      >
+      <section id="invitation" className={`invitation ${opened ? "is-visible" : ""}`} dir="rtl">
         <header className="invitation-header">
           <p>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
           <span>دعوة زفاف</span>
