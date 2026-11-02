@@ -202,7 +202,7 @@ export default function App() {
       <section id="invitation" className={`invitation ${opened ? "is-visible" : ""}`} dir="rtl">
         <header className="invitation-header">
           <p>حكاية تشبه الروايات</p>
-          <span>امتزجت بأجمل الدعوات وتكللت بأسعد النهايات</span>
+          <p>امتزجت بأجمل الدعوات وتكللت بأسعد النهايات</p>
           <p>ولا تكتمل فرحتنا إلا بوجود زغاريت الأحباب</p>
         </header>
 
