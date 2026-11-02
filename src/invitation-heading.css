@@ -1,0 +1,5 @@
+.invitation-header p:first-child {
+  margin-bottom: 12px;
+  color: var(--wine);
+  font-size: clamp(24px, 5vw, 32px);
+}
