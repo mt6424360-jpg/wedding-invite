@@ -3,7 +3,7 @@ import envelope from "./assets/lace-envelope.jpg"
 import invitationPattern from "./assets/invitation-pattern.jpg"
 import laceCard from "./assets/lace-card-transparent.png"
 import seal from "./assets/wax-seal.jpg"
-import openingSong from "./assets/WhatsApp Audio 2026-10-31 at 12.47.18 AM.mpeg"
+import openingSong from "./assets/opening-song.mp3?url"
 
 const WEDDING_DATE = new Date("2026-11-12T20:00:00")
 const WEDDING_LOCATION_URL = "https://maps.app.goo.gl/SBxYdejZH2wH4Byd7"
@@ -127,7 +127,7 @@ export default function App() {
     if (opening) return
     setOpening(true)
 
-    const audio = audioRef.current ?? new Audio(ENVELOPE_OPENING_AUDIO)
+    const audio = new Audio(openingSong)
     audioRef.current = audio
     audio.volume = 0.7
     audio.currentTime = 0
