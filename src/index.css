@@ -497,14 +497,15 @@
 }
 
 .story-copy p + p {
-  margin-top: 2px;
+  margin-top: 8px;
 }
 
 .story-copy .story-heading {
-  margin-bottom: 4px;
-  color: #342c29;
-  font-size: 1.15em;
-  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--wine);
+  font-size: clamp(24px, 4vw, 32px);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
 .story-copy p:last-child {
