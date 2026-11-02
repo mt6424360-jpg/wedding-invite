@@ -201,29 +201,28 @@ export default function App() {
 
       <section id="invitation" className={`invitation ${opened ? "is-visible" : ""}`} dir="rtl">
         <header className="invitation-header">
-          <p>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
-          <span>دعوة زفاف</span>
+          <p>حكاية تشبه الروايات</p>
+          <span>امتزجت بأجمل الدعوات وتكللت بأسعد النهايات</span>
+          <p>ولا تكتمل فرحتنا إلا بوجود زغاريت الأحباب</p>
         </header>
 
         <article className="invitation-card">
           <img className="lace-card" src={laceCard} alt="" />
           <div className="card-content">
             <div className="story-copy">
-              <p className="story-heading">حكاية تشبه الروايات</p>
-              <p>امتزجت بأجمل الدعوات وتكللت بأسعد النهايات</p>
-              <p>ولا تكتمل فرحتنا إلا بوجود زغاريت الأحباب</p>
+             
             </div>
             <div className="host-copy">
               <span>تتشرف حرم الحاج</span>
-              <strong>محمد ميلاد المائل</strong>
+              <strong>/محمد ميلاد المائل</strong>
               <span>السيدة</span>
-              <strong>سميرة علي الأحمر</strong>
+              <strong>/سميرة علي الأحمر</strong>
             </div>
             <p className="invitation-line">بدعوتكم لحضور حفل زفاف حبيبتهم</p>
             <div className="modern-title">
               <h2>إسراء</h2>
             </div>
-            <p className="blessing-line">وذلك بمشيئة الله تعالى يوم الخميس</p>
+            
             <div className="card-date">
               <span>الخميس</span>
               <strong>12</strong>
@@ -234,7 +233,8 @@ export default function App() {
 
         <section className="details-section" aria-label="تفاصيل الحفل">
           <p className="section-kicker">تفاصيل الأمسية</p>
-          <h3>موعدنا مع الفرح</h3>
+          <p className="blessing-line">وذلك بمشيئة الله تعالى </p>
+          
           <div className="details-grid">
             <Detail icon={<CalendarIcon />} title="التاريخ">
               الخميس، 12 نوفمبر 2026
