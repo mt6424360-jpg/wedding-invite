@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react"
+import { useEffect, useRef,  type CSSProperties, type ReactNode } from "react"
 import envelope from "./assets/lace-envelope.jpg"
 import invitationPattern from "./assets/invitation-pattern.jpg"
 import laceCard from "./assets/lace-card-transparent.png"
 import seal from "./assets/wax-seal.jpg"
-import openingSong from "./assets/opening-song.mp3?url"
+
 
 const WEDDING_DATE = new Date("2026-11-12T20:00:00")
 const WEDDING_LOCATION_URL = "https://maps.app.goo.gl/SBxYdejZH2wH4Byd7"
 const SNAP_LENS_URL =
   "https://www.snapchat.com/lens/043ca74b50c841c6a904cb472b0b16ea?share_id=jVvBhlgHJKE&locale=en-GB"
-const ENVELOPE_OPENING_AUDIO = openingSong
+
 const COUPLE_HANDS =
   "https://images.unsplash.com/photo-1521544213200-ee65f73b6238?auto=format&fit=crop&w=1200&q=88"
 
@@ -110,16 +110,13 @@ export default function App() {
   const [opening, setOpening] = useState(false)
   const [opened, setOpened] = useState(false)
   const [timeLeft, setTimeLeft] = useState(getTimeLeft)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
+  
 
   useEffect(() => {
     const timer = window.setInterval(() => setTimeLeft(getTimeLeft()), 1000)
     return () => {
       window.clearInterval(timer)
-      if (audioRef.current) {
-        audioRef.current.pause()
-        audioRef.current.currentTime = 0
-      }
+     
     }
   }, [])
 
@@ -127,11 +124,7 @@ export default function App() {
     if (opening) return
     setOpening(true)
 
-    const audio = new Audio(openingSong)
-    audioRef.current = audio
-    audio.volume = 0.7
-    audio.currentTime = 0
-    audio.play().catch(() => undefined)
+  
 
     window.setTimeout(() => setOpened(true), 1200)
   }
@@ -148,7 +141,7 @@ export default function App() {
       className="wedding-page"
       style={{ "--paper-pattern": `url(${invitationPattern})` } as CSSProperties}
     >
-      <audio ref={audioRef} src={ENVELOPE_OPENING_AUDIO} preload="auto" />
+  
 
       <section className={`welcome ${opening ? "is-opening" : ""}`}>
         <div className="welcome-heading">
