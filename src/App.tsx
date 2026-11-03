@@ -1,4 +1,4 @@
-import { useEffect, useRef,  type CSSProperties, type ReactNode } from "react"
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react"
 import envelope from "./assets/lace-envelope.jpg"
 import invitationPattern from "./assets/invitation-pattern.jpg"
 import laceCard from "./assets/lace-card-transparent.png"
@@ -241,7 +241,7 @@ export default function App() {
                 <span>عرض على الخريطة</span>
               </a>
             </Detail>
-            <Detail icon={<SnapchatIcon />} title="فلتر المناسبة">
+            <Detail icon={<SnapchatIcon/>} title="فلتر المناسبة">
               <a href={SNAP_LENS_URL} target="_blank" rel="noreferrer">
                 Try this lens!
                 <span>فتح الفلتر</span>
