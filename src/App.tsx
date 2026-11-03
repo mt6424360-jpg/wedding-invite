@@ -4,9 +4,10 @@ import invitationPattern from "./assets/invitation-pattern.jpg"
 import laceCard from "./assets/lace-card-transparent.png"
 import seal from "./assets/wax-seal.jpg"
 
-
 const WEDDING_DATE = new Date("2026-11-12T20:00:00")
+
 const WEDDING_LOCATION_URL = "https://maps.app.goo.gl/SBxYdejZH2wH4Byd7"
+
 const SNAP_LENS_URL =
   "https://www.snapchat.com/lens/043ca74b50c841c6a904cb472b0b16ea?share_id=jVvBhlgHJKE&locale=en-GB"
 
@@ -22,6 +23,7 @@ type TimeLeft = {
 
 function getTimeLeft(): TimeLeft {
   const distance = Math.max(0, WEDDING_DATE.getTime() - Date.now())
+
   return {
     days: Math.floor(distance / 86_400_000),
     hours: Math.floor((distance / 3_600_000) % 24),
@@ -80,7 +82,7 @@ function ChildIcon() {
 function SnapchatIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 2.8c2.8 0 4.9 2.1 4.9 4.9 0 1.1-.3 2-.9 2.9-.7.9-1.6 1.4-2.7 1.8.8.4 1.4 1.1 1.8 1.9.6 1.1.5 2.3-.3 3.3-.9 1.2-2.3 1.8-4.1 1.8-1.8 0-3.2-.6-4.1-1.8-.8-1-.9-2.2-.3-3.3.4-.8 1-1.5" />
+      <path d="M12 2.8c2.8 0 4.9 2.1 4.9 4.9 0 1.1-.3 2-.9 2.9-.7.9-1.6 1.4-2.7 1.8.8.4 1.4 1.1 1.8 1.9.6 1.1.5 2.3-.3 3.3-.9 1.2-2.3 1.8-4.1 1.8-1.8 0-3.2-.6-4.1-1.8-.8-1-.9-2.2-.3-3.3.4-.8 1-1.5 1.8-1.9" />
       <path d="M9.5 7.3c.7-.7 1.6-1 2.5-1 .9 0 1.8.3 2.5 1" />
     </svg>
   )
@@ -98,6 +100,7 @@ function Detail({
   return (
     <div className="detail">
       <span className="detail-icon">{icon}</span>
+
       <div>
         <p className="detail-title">{title}</p>
         <div className="detail-copy">{children}</div>
@@ -110,30 +113,33 @@ export default function App() {
   const [opening, setOpening] = useState(false)
   const [opened, setOpened] = useState(false)
   const [timeLeft, setTimeLeft] = useState(getTimeLeft)
-  
+
+  // مرجع مشغل الموسيقى
+  const musicRef = useRef<HTMLAudioElement>(null)
 
   useEffect(() => {
-    const timer = window.setInterval(() => setTimeLeft(getTimeLeft()), 1000)
+    const timer = window.setInterval(() => {
+      setTimeLeft(getTimeLeft())
+    }, 1000)
+
     return () => {
       window.clearInterval(timer)
-     
     }
   }, [])
 
+  // فتح الظرف وتشغيل الموسيقى
   const openInvitation = () => {
     if (opening) return
+
     setOpening(true)
-    const musicRef = useRef<HTMLAudioElement>(null)
 
-// داخل openInvitation، بعد setOpening(true):
-void musicRef.current?.play().catch((error) => {
-  console.error("تعذر تشغيل الموسيقى:", error)
-})
-    
+    void musicRef.current?.play().catch((error) => {
+      console.error("تعذر تشغيل الموسيقى:", error)
+    })
 
-  
-
-    window.setTimeout(() => setOpened(true), 1200)
+    window.setTimeout(() => {
+      setOpened(true)
+    }, 1200)
   }
 
   const countdown = [
@@ -146,16 +152,19 @@ void musicRef.current?.play().catch((error) => {
   return (
     <main
       className="wedding-page"
-      style={{ "--paper-pattern": `url(${invitationPattern})` } as CSSProperties}
-      <audio
-  ref={musicRef}
-  src="/public_song%20(online-audio-converter.com).mp3"
-  preload="auto"
-  loop
-/>
-      
+      style={
+        {
+          "--paper-pattern": `url(${invitationPattern})`,
+        } as CSSProperties
+      }
     >
-  
+      {/* مشغل الموسيقى */}
+      <audio
+        ref={musicRef}
+        src={`${import.meta.env.BASE_URL}public_song%20(online-audio-converter.com).mp3`}
+        preload="auto"
+        loop
+      />
 
       <section className={`welcome ${opening ? "is-opening" : ""}`}>
         <div className="welcome-heading">
@@ -170,12 +179,15 @@ void musicRef.current?.play().catch((error) => {
           aria-label="فتح دعوة الزفاف"
         >
           <span className="envelope-shadow" />
+
           <span className="envelope-contents" aria-hidden="true">
             <span className="hands-photo">
               <img src={COUPLE_HANDS} alt="" />
               <small>12 · 11 · 26</small>
             </span>
+
             <span className="vinyl-record" />
+
             <span className="name-ticket">
               <small>THE WEDDING OF</small>
               <strong>
@@ -184,6 +196,7 @@ void musicRef.current?.play().catch((error) => {
               <b>Save the date</b>
             </span>
           </span>
+
           <img className="envelope-image" src={envelope} alt="" />
           <img className="envelope-flap" src={envelope} alt="" />
           <img className="wax-seal" src={seal} alt="" />
@@ -191,10 +204,15 @@ void musicRef.current?.play().catch((error) => {
 
         {!opening ? (
           <button className="open-prompt" onClick={openInvitation}>
-            <svg className="prompt-arrow" viewBox="0 0 80 78" aria-hidden="true">
+            <svg
+              className="prompt-arrow"
+              viewBox="0 0 80 78"
+              aria-hidden="true"
+            >
               <path d="M12 70C10 43 28 18 62 12" />
               <path d="m49 7 14 5-8 13" />
             </svg>
+
             <span>Tap the envelope to view the invitation</span>
             <span className="prompt-line" />
           </button>
@@ -206,7 +224,11 @@ void musicRef.current?.play().catch((error) => {
         )}
       </section>
 
-      <section id="invitation" className={`invitation ${opened ? "is-visible" : ""}`} dir="rtl">
+      <section
+        id="invitation"
+        className={`invitation ${opened ? "is-visible" : ""}`}
+        dir="rtl"
+      >
         <header className="invitation-header">
           <p>حكاية تشبه الروايات</p>
           <p>امتزجت بأجمل الدعوات وتكللت بأسعد النهايات</p>
@@ -215,21 +237,25 @@ void musicRef.current?.play().catch((error) => {
 
         <article className="invitation-card">
           <img className="lace-card" src={laceCard} alt="" />
+
           <div className="card-content">
-            <div className="story-copy">
-             
-            </div>
+            <div className="story-copy"></div>
+
             <div className="host-copy">
               <span>تتشرف حرم الحاج</span>
               <strong>/محمد ميلاد المائل</strong>
               <span>السيدة</span>
               <strong>/سميرة علي الأحمر</strong>
             </div>
-            <p className="invitation-line">بدعوتكم لحضور حفل زفاف حبيبتهم</p>
+
+            <p className="invitation-line">
+              بدعوتكم لحضور حفل زفاف حبيبتهم
+            </p>
+
             <div className="modern-title">
               <h2>إسراء</h2>
             </div>
-            
+
             <div className="card-date">
               <span>الخميس</span>
               <strong>12</strong>
@@ -240,22 +266,29 @@ void musicRef.current?.play().catch((error) => {
 
         <section className="details-section" aria-label="تفاصيل الحفل">
           <p className="section-kicker">تفاصيل الأمسية</p>
-          <p className="blessing-line">وذلك بمشيئة الله تعالى </p>
-          
+          <p className="blessing-line">وذلك بمشيئة الله تعالى</p>
+
           <div className="details-grid">
             <Detail icon={<CalendarIcon />} title="التاريخ">
               الخميس، 12 نوفمبر 2026
             </Detail>
+
             <Detail icon={<ClockIcon />} title="الوقت">
               الساعة الثامنة مساءً
             </Detail>
+
             <Detail icon={<PinIcon />} title="المكان">
-              <a href={WEDDING_LOCATION_URL} target="_blank" rel="noreferrer">
+              <a
+                href={WEDDING_LOCATION_URL}
+                target="_blank"
+                rel="noreferrer"
+              >
                 موقع قاعة رويال بلاس
                 <span>عرض على الخريطة</span>
               </a>
             </Detail>
-            <Detail icon={<SnapchatIcon/>} title="فلتر المناسبة">
+
+            <Detail icon={<SnapchatIcon />} title="فلتر المناسبة">
               <a href={SNAP_LENS_URL} target="_blank" rel="noreferrer">
                 Try this lens!
                 <span>فتح الفلتر</span>
@@ -267,21 +300,28 @@ void musicRef.current?.play().catch((error) => {
         <section className="notes" aria-label="تنبيهات الحفل">
           <div>
             <CameraIcon />
+
             <p>
-              <strong>لحظاتنا أجمل بخصوصيتها</strong>يُمنع التصوير داخل القاعة
+              <strong>لحظاتنا أجمل بخصوصيتها</strong>
+              يُمنع التصوير داخل القاعة
             </p>
           </div>
+
           <span className="notes-divider" />
+
           <div>
             <ChildIcon />
+
             <p>
-              <strong>نعتذر منكم</strong>إدارة الصالة تمنع اصطحاب الأطفال
+              <strong>نعتذر منكم</strong>
+              إدارة الصالة تمنع اصطحاب الأطفال
             </p>
           </div>
         </section>
 
         <section className="countdown-section" aria-label="العد التنازلي">
           <p>باقي على ليلة العمر</p>
+
           <div className="countdown" dir="ltr">
             {countdown.map((item) => (
               <div className="countdown-item" key={item.label}>
@@ -294,9 +334,11 @@ void musicRef.current?.play().catch((error) => {
 
         <footer>
           <span>We can't wait to celebrate with you</span>
+
           <div className="footer-names">
             إسراء <i>&amp;</i> عبد الحفيظ
           </div>
+
           <p>12 · 11 · 2026</p>
         </footer>
       </section>
