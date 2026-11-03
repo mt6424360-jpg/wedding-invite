@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties, type ReactNode } from "react"
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react"
 import envelope from "./assets/lace-envelope.jpg"
 import invitationPattern from "./assets/invitation-pattern.jpg"
 import laceCard from "./assets/lace-card-transparent.png"
@@ -123,6 +123,13 @@ export default function App() {
   const openInvitation = () => {
     if (opening) return
     setOpening(true)
+    const musicRef = useRef<HTMLAudioElement>(null)
+
+// داخل openInvitation، بعد setOpening(true):
+void musicRef.current?.play().catch((error) => {
+  console.error("تعذر تشغيل الموسيقى:", error)
+})
+    
 
   
 
@@ -140,6 +147,13 @@ export default function App() {
     <main
       className="wedding-page"
       style={{ "--paper-pattern": `url(${invitationPattern})` } as CSSProperties}
+      <audio
+  ref={musicRef}
+  src="/public_song%20(online-audio-converter.com).mp3"
+  preload="auto"
+  loop
+/>
+      
     >
   
 
